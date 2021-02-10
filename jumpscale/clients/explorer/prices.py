@@ -4,6 +4,16 @@ from .base import BaseResource
 class Prices(BaseResource):
     _resource = "prices"
 
+    def get(self):
+        response = self._session.get(self._url)
+        prices_dict = response.json()
+        return {
+            "cu": prices_dict["CuPriceDollarMonth"],
+            "su": prices_dict["CuPriceDollarMonth"],
+            "ipv4u": prices_dict["CuPriceDollarMonth"]
+        
+        }
+
     def _get(self, cus=0, sus=0, ipv4us=0):
         response = self._session.get(self._url)
         prices_dict = response.json()
